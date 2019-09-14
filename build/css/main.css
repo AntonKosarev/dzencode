@@ -1,0 +1,8 @@
+@import url(../../bower_components/normalize.css/normalize.css);
+.header {
+  width: 100%;
+  display: table;
+  position: relative;
+  border: 1px solid black; }
+
+/*# sourceMappingURL=data:application/json;charset=utf8;base64,eyJ2ZXJzaW9uIjozLCJzb3VyY2VzIjpbIm1haW4uc2NzcyIsInBhcnRpYWxzL2FwcC5zY3NzIl0sIm5hbWVzIjpbXSwibWFwcGluZ3MiOiJBQUFBLCtEQUFPO0FDQVA7RUFDQSxXQUFXO0VBQ1gsY0FBYztFQUNkLGtCQUFrQjtFQUNsQix1QkFBdUIsRUFBQSIsImZpbGUiOiJtYWluLmNzcyIsInNvdXJjZXNDb250ZW50IjpbIkBpbXBvcnQgXCIuLi8uLi9ib3dlcl9jb21wb25lbnRzL25vcm1hbGl6ZS5jc3Mvbm9ybWFsaXplLmNzc1wiO1xyXG5AaW1wb3J0IFwicGFydGlhbHMvYXBwXCI7XHJcbiIsIi5oZWFkZXIge1xyXG53aWR0aDogMTAwJTtcclxuZGlzcGxheTogdGFibGU7XHJcbnBvc2l0aW9uOiByZWxhdGl2ZTtcclxuYm9yZGVyOiAxcHggc29saWQgYmxhY2s7XHJcbn1cclxuIl19 */

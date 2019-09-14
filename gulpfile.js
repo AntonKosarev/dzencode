@@ -33,35 +33,39 @@ var gulp = require('gulp'),//"gulp": "^4.0.2",
     },
     clean: './build'
 };
-gulp.task('html:build', function () {
+gulp.task('html:build', async function () {
     gulp.src(path.src.html)
         .pipe(rigger())
-        .pipe(gulp.dest(path.build.html))
+        .pipe(gulp.dest(path.build.html));
 });
-gulp.task('js:build', function () {
-    gulp.src(path.src.js)
-        .pipe(rigger())
-        .pipe(gulp.dest(path.build.js))
+gulp.task('js:build', async function () {
+  gulp.src(path.src.js)
+      .pipe(rigger())
+      .pipe(sourcemaps.init())
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest(path.build.js));
 });
-gulp.task('style:build', function () {
-    gulp.src(path.src.style)
-        .pipe(sass())
-        .pipe(prefixer())
-        .pipe(gulp.dest(path.build.css))
+gulp.task('style:build', async function () {
+  gulp.src(path.src.style)
+      .pipe(sourcemaps.init())
+      .pipe(sass())
+      .pipe(prefixer())
+      .pipe(sourcemaps.write())
+      .pipe(gulp.dest(path.build.css));
 });
-gulp.task('image:build', function () {
-    gulp.src(path.src.img)
-        .pipe(imagemin({
+gulp.task('image:build', async function () {
+    gulp.src(path.src.img) //Выберем наши картинки
+        .pipe(imagemin({ //Сожмем их
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()],
             interlaced: true
         }))
-        .pipe(gulp.dest(path.build.img))
+        .pipe(gulp.dest(path.build.img)) //И бросим в build
 });
-gulp.task('fonts:build', function() {
+gulp.task('fonts:build', async function() {
     gulp.src(path.src.fonts)
-        .pipe(gulp.dest(path.build.fonts))
+        .pipe(gulp.dest(path.build.fonts));
 });
 gulp.task('build', gulp.parallel(
     'html:build',
@@ -70,21 +74,26 @@ gulp.task('build', gulp.parallel(
     'image:build',
     'fonts:build'
 ));
-gulp.task('watch', function(){
-    watch([path.watch.html], function(event, cb) {
+gulp.task('watch', function(done){
+    watch([path.watch.html], function(event, cb, done) {
         gulp.start('html:build');
+        done();
     });
-    watch([path.watch.style], function(event, cb) {
+    watch([path.watch.style], function(event, cb, done) {
         gulp.start('style:build');
+        done();
     });
-    watch([path.watch.js], function(event, cb) {
+    watch([path.watch.js], function(event, cb, done) {
         gulp.start('js:build');
+        done();
     });
-    watch([path.watch.img], function(event, cb) {
+    watch([path.watch.img], function(event, cb, done) {
         gulp.start('image:build');
+        done();
     });
-    watch([path.watch.fonts], function(event, cb) {
+    watch([path.watch.fonts], function(event, cb, done) {
         gulp.start('fonts:build');
+        done();
     });
 });
 gulp.task('default', gulp.parallel(
