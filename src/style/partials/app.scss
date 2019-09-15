@@ -1,6 +1,27 @@
-.header {
-width: 100%;
-display: table;
-position: relative;
-border: 1px solid black;
+$button_color: #475bf1;
+$button_hover_color: #5b6ceb;
+$background_color: #5363db;
+$footer_bg_color: $button_hover_color;
+$copyright_bg_color: $background_color;
+
+.header {}
+
+.content {
+  .form {
+    background: url("../img/bg.jpg") $background_color 100% 100% no-repeat;
+    min-height: 598px;
+  }
+
+  .icons {
+    background: url("../img/bg_iconsblock.jpg") $background_color 100% 100% no-repeat;
+    min-height: 800px;
+  }
+}
+
+.footer {
+  background-color: $button_hover_color;
+
+  .copyright {
+    background-color: $background_color;
+  }
 }

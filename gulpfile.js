@@ -74,29 +74,24 @@ gulp.task('build', gulp.parallel(
     'image:build',
     'fonts:build'
 ));
-gulp.task('watch', function(done){
-    watch([path.watch.html], function(event, cb, done) {
-        gulp.start('html:build');
-        done();
+/*gulp.task('watch', async function(){
+    watch([path.watch.html], function(event, cb) {
+        return gulp.parallel('html:build');
     });
-    watch([path.watch.style], function(event, cb, done) {
-        gulp.start('style:build');
-        done();
+    watch([path.watch.style], function(event, cb) {
+        return gulp.parallel('style:build');
     });
-    watch([path.watch.js], function(event, cb, done) {
-        gulp.start('js:build');
-        done();
+    watch([path.watch.js], function(event, cb) {
+        return gulp.parallel('js:build');
     });
-    watch([path.watch.img], function(event, cb, done) {
-        gulp.start('image:build');
-        done();
+    watch([path.watch.img], function(event, cb) {
+        return gulp.parallel('image:build');
     });
-    watch([path.watch.fonts], function(event, cb, done) {
-        gulp.start('fonts:build');
-        done();
+    watch([path.watch.fonts], function(event, cb) {
+        return gulp.parallel('fonts:build');
     });
-});
-gulp.task('default', gulp.parallel(
-    'build',
-    'watch'
+});*/
+gulp.task('default', gulp.series(
+    // 'watch',
+    'build'
 ));
