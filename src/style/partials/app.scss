@@ -3,13 +3,101 @@ $button_hover_color: #5b6ceb;
 $background_color: #5363db;
 $footer_bg_color: $button_hover_color;
 $copyright_bg_color: $background_color;
+$menu_hover: $background_color;
 
-.header {}
+* {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  text-decoration: none;
+  color: black;
+}
+
+.clearfix:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+.header {
+  text-align: center;
+  margin: 14px 0;
+
+  .logo {
+    // width: 70px
+    // margin: auto;
+    display: inline-block;
+  }
+
+  .left_menu {
+    float: left;
+  }
+
+  .right_menu {
+    float: right;
+  }
+
+  .menu {
+    margin: 28px 0;
+    min-width: 200px;
+    width: 40%;
+
+    ul {
+      display: inline-block;
+      // text-align: center;
+      li {
+        display: inline-block;
+
+        a {
+          display: block;
+          margin: 0 14px;
+
+          span {
+            width: 60%;
+            border-top: 1px solid $menu_hover;
+            margin: 4px auto 0;
+            display: block;
+            visibility: hidden;
+          }
+        }
+
+        a:hover {
+          color: $menu_hover;
+          margin: 0 14px;
+
+          span {
+            visibility: visible;
+          }
+        }
+      }
+    }
+  }
+}
 
 .content {
   .form {
     background: url("../img/bg.jpg") $background_color 100% 100% no-repeat;
     min-height: 598px;
+    position: relative;
+    .form-wrapper {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width:100%;
+      text-align: center;
+
+    }
+
+    .form_try-it {
+      display: inline-block;
+      background-color: #fff;
+      // vertical-align: sub;
+    }
+
+    .slogan {
+      display: inline-block;
+      // vertical-align: sub;
+    }
   }
 
   .icons {

@@ -1,15 +1,15 @@
 'use strict';
-var gulp = require('gulp'),//"gulp": "^4.0.2",
-    rigger = require('gulp-rigger'),//"gulp-rigger": "^0.5.8",
-    sass = require('gulp-sass'),//"gulp-sass": "^4.0.2",
-    prefixer = require('gulp-autoprefixer'),//"gulp-autoprefixer": "^7.0.0"
-    imagemin = require('gulp-imagemin'),//"gulp-imagemin": "^6.1.0",
-    watch = require('gulp-watch'),//"gulp-watch": "^5.0.1",
-    pngquant = require('imagemin-pngquant'),//"imagemin-pngquant": "^8.0.0"
-    sourcemaps = require('gulp-sourcemaps'),//"gulp-sourcemaps": "^2.6.5",
-    rimraf = require('rimraf');
-    // reload = browserSync.reload;//"browser-sync": "^2.26.7",
-    var path = {
+var gulp = require('gulp'),
+    rigger = require('gulp-rigger'),
+  //  uglify = require('gulp-uglify'),
+    sass = require('gulp-sass'),
+    prefixer = require('gulp-autoprefixer'),
+    //cssmin = require('gulp-cssmin'),
+    imagemin = require('gulp-imagemin'),
+    pngquant = require('imagemin-pngquant'),
+    watch = require('gulp-watch');
+
+var path = {
     build: {
         html: 'build/',
         js: 'build/js/',
@@ -25,7 +25,7 @@ var gulp = require('gulp'),//"gulp": "^4.0.2",
         fonts: 'src/fonts/**/*.*'
     },
     watch: {
-        html: 'src/template/*.html',
+        html: 'src/**/*.html',
         js: 'src/js/**/*.js',
         style: 'src/style/**/*.scss',
         img: 'src/img/**/*.*',
@@ -33,65 +33,71 @@ var gulp = require('gulp'),//"gulp": "^4.0.2",
     },
     clean: './build'
 };
-gulp.task('html:build', async function () {
+
+gulp.task('html:build', function () {
     gulp.src(path.src.html)
         .pipe(rigger())
-        .pipe(gulp.dest(path.build.html));
+        .pipe(gulp.dest(path.build.html))
 });
-gulp.task('js:build', async function () {
-  gulp.src(path.src.js)
-      .pipe(rigger())
-      .pipe(sourcemaps.init())
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest(path.build.js));
+
+gulp.task('js:build', function () {
+    gulp.src(path.src.js)
+        .pipe(rigger())
+        //.pipe(uglify())
+        .pipe(gulp.dest(path.build.js))
 });
-gulp.task('style:build', async function () {
-  gulp.src(path.src.style)
-      .pipe(sourcemaps.init())
-      .pipe(sass())
-      .pipe(prefixer())
-      .pipe(sourcemaps.write())
-      .pipe(gulp.dest(path.build.css));
+
+gulp.task('style:build', function () {
+    gulp.src(path.src.style)
+        .pipe(sass())
+        .pipe(prefixer())
+        //.pipe(cssmin())
+        .pipe(gulp.dest(path.build.css))
 });
-gulp.task('image:build', async function () {
-    gulp.src(path.src.img) //Выберем наши картинки
-        .pipe(imagemin({ //Сожмем их
+
+gulp.task('image:build', function () {
+    gulp.src(path.src.img)
+        .pipe(imagemin({
             progressive: true,
             svgoPlugins: [{removeViewBox: false}],
             use: [pngquant()],
             interlaced: true
         }))
-        .pipe(gulp.dest(path.build.img)) //И бросим в build
+        .pipe(gulp.dest(path.build.img))
 });
-gulp.task('fonts:build', async function() {
+
+gulp.task('fonts:build', function() {
     gulp.src(path.src.fonts)
-        .pipe(gulp.dest(path.build.fonts));
+        .pipe(gulp.dest(path.build.fonts))
 });
-gulp.task('build', gulp.parallel(
+
+gulp.task('build', [
     'html:build',
     'js:build',
     'style:build',
     'image:build',
     'fonts:build'
-));
-/*gulp.task('watch', async function(){
+]);
+
+gulp.task('watch', function(){
     watch([path.watch.html], function(event, cb) {
-        return gulp.parallel('html:build');
+        gulp.start('html:build');
     });
     watch([path.watch.style], function(event, cb) {
-        return gulp.parallel('style:build');
+        gulp.start('style:build');
     });
     watch([path.watch.js], function(event, cb) {
-        return gulp.parallel('js:build');
+        gulp.start('js:build');
     });
     watch([path.watch.img], function(event, cb) {
-        return gulp.parallel('image:build');
+        gulp.start('image:build');
     });
     watch([path.watch.fonts], function(event, cb) {
-        return gulp.parallel('fonts:build');
+        gulp.start('fonts:build');
     });
-});*/
-gulp.task('default', gulp.series(
-    // 'watch',
-    'build'
-));
+});
+
+gulp.task('default', [
+    'build',
+    'watch'
+]);
