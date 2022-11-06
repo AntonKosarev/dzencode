@@ -6,7 +6,7 @@
   "dependencies": {
     "browser-sync": "^2.26.7",
     "bxslider": "^4.2.14",
-    "gulp": "^3.9.1",
+    "gulp": "^4.0.2",
     "gulp-autoprefixer": "^7.0.0",
     "gulp-imagemin": "^6.1.0",
     "gulp-rigger": "^0.5.8",
